@@ -8,7 +8,7 @@ function initDb() {
   const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'ushur123#',
+    password: 'testuser',
     database: 'testdb'
   });
 
@@ -18,7 +18,7 @@ function initDb() {
       return;
     }
 
-    console.log('connected as id ' + connection.threadId);
+    log.info('connected as id ' + connection.threadId);
   });
 }
 

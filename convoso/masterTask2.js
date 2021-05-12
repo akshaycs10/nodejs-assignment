@@ -1,12 +1,14 @@
+//parent process
 const child_process = require('child_process');
 const http = require('http');
 
 for (let i = 0; i < 10; i++) {
+   //spinning up 10 concurrent child processes
    let child = child_process.fork(__dirname + '/task2.js');
 
    child.on('message', onMessage);
    child.on('close', (code) => {
-      console.log(`child process exited with code ${code}`);
+      console.error(`child process exited with code ${code}`);
    });
 }
 
@@ -20,9 +22,15 @@ http.createServer(function (req, res) {
       data += chunk;
    })
    req.on('end', () => {
-      console.log("req body:", JSON.parse(data));
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.write("Response from server");
-      res.end();
+      try {
+         console.log("req body:", JSON.parse(data));
+         res.writeHead(200, { 'Content-Type': 'text/html' });
+         res.write("Response from server");
+         res.end();
+      }
+      catch (err) {
+         console.error("caught error:", err)
+      }
+
    })
 }).listen(8080);
