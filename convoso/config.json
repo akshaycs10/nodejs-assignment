@@ -1,0 +1,7 @@
+{
+    "logStats": false,
+    "globalLogLevel": "info",
+    "printLogSource": false,
+    "logPath": "./convoso.log"
+    
+}
